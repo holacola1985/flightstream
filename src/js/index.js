@@ -27,12 +27,15 @@ $(document).ready(function() {
   //control.set3dMode();
 
 
-  map.setView([1.367245, 103.809247], 15);
+  map.setView([1.367245, 103.809247], 17);
 
   var layer = new DroneLayer();
   map.addLayer(layer);
-  setTimeout(function(){
-    layer.appendMarker([1.367245, 103.809247]);
-  }, 500);
-
+  layer.appendMarker([1.367245, 103.809247]);
+  layer.appendMarker([1.366628, 103.811908]);
+  layer.appendMarker([1.365052, 103.806350]);
+  layer.appendMarker([1.367095, 103.808750]);
+  layer.appendMarker([1.366775, 103.808111]);
+  layer.appendMarker([1.366113, 103.807654]);
+  layer.appendMarker([1.367095, 103.810338]);
 });

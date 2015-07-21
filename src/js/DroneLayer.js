@@ -4,6 +4,8 @@ var $ = require('jquery');
 var template = require('./marker.hbs');
 var L = window.L;
 
+var H = 10;
+
 module.exports = L.Class.extend({
 
   initialize: function() {
@@ -11,7 +13,7 @@ module.exports = L.Class.extend({
 
   onAdd: function(map) {
     this._map = map;
-    this._el = L.DomUtil.create('div', 'leaflet-zoom-hide');
+    this._el = L.DomUtil.create('div', 'drone-layer');
     map.getPanes().overlayPane.appendChild(this._el);
     map.on('viewreset', this._reset, this);
     this._reset();
@@ -27,8 +29,9 @@ module.exports = L.Class.extend({
   },
 
   appendMarker: function(latLng) {
+    H += 10;
     var html = template({
-      height: 59
+      height: H
     });
     var $node = $(html);
     var pos = this._map.latLngToLayerPoint(latLng);
