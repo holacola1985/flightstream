@@ -7,7 +7,7 @@ module.exports = function createMarker(latLng) {
   var icon = L.divIcon({
     className: 'drone-point',
     html: template({
-      height: 18  
+      height: 59  
     })
   });
   var marker = L.marker(latLng, {

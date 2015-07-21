@@ -205,8 +205,17 @@ body {
   transform: rotateX(60deg);
 }
 .drone-point {
+  position: absolute;
   background: red;
-  width: 100px;
-  height: 100px;
+  width: 25px;
+  height: 25px;
   border-radius: 100px;
+}
+.altitude {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  background: 1px solid blue;
+  transform: rotateX(90deg);
 }

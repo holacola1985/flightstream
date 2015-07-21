@@ -1,7 +1,7 @@
 "use strict";
 var $ = require('jquery');
 var Control3D = require('./Control3D');
-var createMarker = require('./Marker');
+var DroneLayer = require('./DroneLayer');
 require('mapbox.js');
 
 var L = window.L;
@@ -24,13 +24,15 @@ $(document).ready(function() {
     el: $('.control-3d')
   });
 
+  //control.set3dMode();
+
 
   map.setView([1.367245, 103.809247], 15);
 
-  var marker = createMarker([1.367245, 103.809247]);
-  marker.addTo(map);
-  
+  var layer = new DroneLayer();
+  map.addLayer(layer);
   setTimeout(function(){
-    console.log($('.drone-point'));
+    layer.appendMarker([1.367245, 103.809247]);
   }, 500);
+
 });
