@@ -173,6 +173,7 @@ html {
 }
 body {
   height: 100%;
+  font-family: monospace;
 }
 #content {
   height: 100%;
@@ -181,10 +182,13 @@ body {
 }
 .control-3d {
   position: absolute;
+  outline: 0 none;
   top: 10px;
   left: 10px;
-  background: white;
+  background: #eee;
   padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
 }
 #map {
   transform-style: preserve-3d;

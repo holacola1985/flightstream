@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   var config = {
     browserify: {
       options: {
-        //transform: ['hbsfy', 'reactify'],
+        transform: ['hbsfy'],
         watch: true,
         browserifyOptions: {
           debug: true,
