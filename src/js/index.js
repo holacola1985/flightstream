@@ -2,12 +2,15 @@
 var $ = require('jquery');
 var Control3D = require('./Control3D');
 var DroneLayer = require('./DroneLayer');
+var SampleData = require('./SampleData');
 require('mapbox.js');
 
 var L = window.L;
 
 L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
 
+var data = new SampleData();
+data.load();
 
 $(document).ready(function() {
 
