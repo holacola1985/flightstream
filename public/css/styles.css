@@ -183,13 +183,24 @@ body {
 }
 .control-3d {
   position: absolute;
-  outline: 0 none;
   top: 10px;
   left: 10px;
+}
+.control-3d button {
+  outline: 0 none;
   background: #eee;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+}
+.control-3d input {
+  visibility: hidden;
+}
+.control-3d.on input {
+  visibility: visible;
+}
+.control-3d.on button {
+  background: #ddd;
 }
 #map {
   transform-style: preserve-3d;
@@ -204,7 +215,7 @@ body {
   transition: all 0.3s;
 }
 #map.pers {
-  transform: translateY(200px) rotateX(90deg);
+  transform: ;
 }
 #map * {
   transform-style: preserve-3d;
@@ -223,6 +234,7 @@ body {
   left: 50%;
   width: 1px;
   background: white;
+  opacity: 0.7;
   transform-origin: top center;
 }
 .plan {
