@@ -28,13 +28,11 @@ module.exports = L.Class.extend({
 
   },
 
-  appendMarker: function(latLng) {
-    H += 10;
-    var html = template({
-      height: H
-    });
+  appendMarker: function(item) {
+    H += 1;
+    var html = template(item.data);
     var $node = $(html);
-    var pos = this._map.latLngToLayerPoint(latLng);
+    var pos = this._map.latLngToLayerPoint(item.geojson.coordinates);
     $node.css({
       top: pos.y,
       left: pos.x

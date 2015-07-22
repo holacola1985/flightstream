@@ -7,7 +7,7 @@ function SampleData() {
 }
 
 SampleData.prototype.load = function load() {
-  $.get('geo-sample.csv', function(str) {
+  return $.get('geo-sample.csv', function(str) {
     this.parse(str);
   }.bind(this));
 };
