@@ -4,17 +4,16 @@ var _ = require('lodash');
 var Control3D = require('./Control3D');
 var DroneLayer = require('./DroneLayer');
 var SampleData = require('./SampleData');
+//var lightstream = require('lightstream-socket');
 require('mapbox.js');
-
 var L = window.L;
-
 L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
 
 var sample = new SampleData();
 
 $(document).ready(function() {
 
-  var map = L.mapbox.map('map', 'franckernewein.70945bd6', {
+  var map = L.mapbox.map('map', 'franckernewein.925cb8ba', {
     zoomControl: false,
     attributionControl: false,
     tileLayer: {
@@ -48,9 +47,11 @@ $(document).ready(function() {
     map.setView(sample.data[0].geojson.coordinates, 17);
     _.each(sample.data, function(item, i) {
       setTimeout(function() {
-        layer.appendMarker(item);
-        if ($follow.is(':checked')) {
-          map.setView(item.geojson.coordinates, map.getZoom());
+        if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
+          layer.appendMarker(item);
+          if ($follow.is(':checked')) {
+            map.setView(item.geojson.coordinates, map.getZoom());
+          }
         }
       }, 300 * i);
     });
