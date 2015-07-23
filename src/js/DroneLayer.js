@@ -1,14 +1,13 @@
 "use strict";
 require('mapbox.js');
-var $ = require('jquery');
-var template = require('./marker.hbs');
+//var $ = require('jquery');
 var L = window.L;
-
-var H = 10;
+var Marker = require('./Marker');
 
 module.exports = L.Class.extend({
 
   initialize: function() {
+    this.markers = [];
   },
 
   onAdd: function(map) {
@@ -29,15 +28,23 @@ module.exports = L.Class.extend({
   },
 
   appendMarker: function(item) {
-    H += 1;
-    var html = template(item.data);
-    var $node = $(html);
-    var pos = this._map.latLngToLayerPoint(item.geojson.coordinates);
-    $node.css({
-      top: pos.y,
-      left: pos.x
-    });
-    $node.appendTo(this._el);    
+    if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
+      this.markers.push(new Marker({
+        data: item,
+        layer: this
+      }));
+      var length = this.markers.length;
+      if (length > 1) {
+        var start = this.markers[length - 2].data.geojson.coordinates;
+        var stop = this.markers[length - 1].data.geojson.coordinates;
+        L.polyline([start, stop], {
+          weight: 1,
+          color: 'orange',
+          fill: false,
+          clickable: false
+        }).addTo(this._map);
+      }
+    }
   }
 
 });

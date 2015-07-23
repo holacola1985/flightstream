@@ -29,9 +29,6 @@ $(document).ready(function() {
 
   //control.set3dMode();
 
-
-  
-
   var getPxBounds = map.getPixelBounds;
   map.getPixelBounds = function() {
     var bounds = getPxBounds.call(this);
@@ -45,9 +42,18 @@ $(document).ready(function() {
   var layer = new DroneLayer();
   map.addLayer(layer);
 
-  sample.load().done(function(){
-    map.setView(sample.data[0].geojson.coordinates, 22);
-    _.each(sample.data, layer.appendMarker, layer);
+  var $follow = $('#follow-drone');
+
+  sample.load().done(function() {
+    map.setView(sample.data[0].geojson.coordinates, 17);
+    _.each(sample.data, function(item, i) {
+      setTimeout(function() {
+        layer.appendMarker(item);
+        if ($follow.is(':checked')) {
+          map.setView(item.geojson.coordinates, map.getZoom());
+        }
+      }, 300 * i);
+    });
   });
   /*
   layer.appendMarker([1.366775, 103.808111]);

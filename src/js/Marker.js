@@ -1,17 +1,35 @@
 "use strict";
-require('mapbox.js');
+var $ = require('jquery');
 var template = require('./marker.hbs');
-var L = window.L;
+var m2px = require('./meterToPixel.js');
 
-module.exports = function createMarker(latLng) {
-  var icon = L.divIcon({
-    className: 'drone-point',
-    html: template({
-      height: 59  
-    })
-  });
-  var marker = L.marker(latLng, {
-    icon: icon
-  });
-  return marker;
+function Marker(options) {
+  this.data = options.data;
+  this.layer = options.layer;
+  this.render();
+  this.setPosition();
+  this.layer._map.on('viewreset', function(){
+    this.setPosition();
+  }.bind(this));
+}
+
+Marker.prototype.render = function render() {
+  if(this.$el){
+    this.$el.remove();
+  }
+  this.$el = $(template({
+    height: m2px.convertMeterInPixel(this.data.data.altitude * 0.3048);
+  })); 
+  this.$el.appendTo(this.layer._el);    
 };
+
+
+Marker.prototype.setPosition = function setPosition() {
+  var pos = this.layer._map.latLngToLayerPoint(this.data.geojson.coordinates);
+  this.$el.css({
+    top: pos.y,
+    left: pos.x
+  });
+};
+
+module.exports = Marker;

@@ -6,7 +6,22 @@ html{
 body{
   height: 100%;
   font-family: monospace;
+  @c1: darken(#3475d8, 10%);
+  @c2: lighten(#3475d8, 20%);
+  background: radial-gradient(ellipse at center, @c2 0%, @c1 100%);
 }
+
+.fadeInKF(){
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn{.fadeInKF();}
+@-webkit-keyframes fadeIn{.fadeInKF();}
 
 #content{
   position: absolute;
@@ -15,10 +30,13 @@ body{
   perspective: 500px;
 }
 
-.control-3d{
+.control{
   position: absolute;
   top: 10px;
   left: 10px;
+}
+
+.control-3d{
   button{
     outline: 0 none;
     background: #eee;
@@ -37,7 +55,15 @@ body{
       background: #ddd;
     }
   }
-
+}
+.follow{
+  padding: 20px 0 0 0;
+  label{
+    background: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 7px rgba(0,0,0,0.2);
+  }
 }
 
 #map {
@@ -66,14 +92,19 @@ body{
   transform-style: preserve-3d;
 }
 
+.leaflet-overlay-pane{
+  transform: translateZ(2px);
+}
+
 
 .drone-point{
   position: absolute;
   background: orange;
-  width: 15px;
-  height: 15px;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
   border-radius: 100px;
-  transform: translateZ(2px);
+  animation: fadeIn 0.5s;
 }
 
 .altitude{
@@ -82,7 +113,7 @@ body{
   left: 50%;
   width: 1px;
   background: white;
-  opacity: 0.7;
+  opacity: 0.2;
   transform-origin: top center;
 }
 
