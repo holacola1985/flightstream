@@ -1,7 +1,7 @@
 "use strict";
 var _ = require('lodash');
-require('mapbox.js');
 //var $ = require('jquery');
+require('mapbox.js');
 var L = window.L;
 var Marker = require('./Marker');
 
@@ -36,6 +36,8 @@ module.exports = L.Class.extend({
   _reset: function() {
     _.each(this.markers, function(marker) {
       marker.setPosition();
+    });
+    _.each(this.markers, function(marker) {
       marker.setHeight();
     });
   },
@@ -55,6 +57,7 @@ module.exports = L.Class.extend({
       this.markersById[item.id] = marker;
       var length = this.markers.length;
       if (length > 1) {
+        /*
         var start = this.markers[length - 2].model.getCoordinates();
         var stop = this.markers[length - 1].model.getCoordinates();
         L.polyline([start, stop], {
@@ -63,17 +66,21 @@ module.exports = L.Class.extend({
           fill: false,
           clickable: false
         }).addTo(this._map);
+        */
+
+        this.markers[length - 2].drawPathToMarker(this.markers[length - 1]);
       }
     }
   },
 
-  activateMarker: function(model){
+
+  activateMarker: function(model) {
     console.log(model);
-    if(this._activeMarker){
+    if (this._activeMarker) {
       this._activeMarker.$el.removeClass('on');
     }
     this._activeMarker = this.markersById[model.id];
-    if(this._activeMarker){
+    if (this._activeMarker) {
       this._activeMarker.$el.addClass('on');
     }
 

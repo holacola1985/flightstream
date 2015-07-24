@@ -136,20 +136,46 @@ body{
       top: 0;
       left: 0;
     }
+    .altitude{
+      background: orange;
+      opacity: 1;
+      width: 2px;
+    }
+  }
+  .altitude{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    background: white;
+    opacity: 0.4;
+    transform-origin: top center;
+    transition: all 0.2s;
+    pointer-events: none;
+  }
+  .drone-floor-path{
+    top: @w/2;
+    left: @w/2;
+    position: absolute;
+    background: white;
+    opacity: 0.2;
+    height: 1px;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+  .drone-aerial-path{
+    top: @w/2;
+    left: @w/2;
+    position: absolute;
+    background: white;
+    opacity: 0.7;
+    height: 1px;
+    transform-origin: center left;
+    pointer-events: none;
   }
 }
 
-.altitude{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1px;
-  background: white;
-  opacity: 0.4;
-  transform-origin: top center;
-  
-  //display: none;
-}
+
 
 
 .info{

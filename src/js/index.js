@@ -67,6 +67,9 @@ $(document).ready(function() {
       setTimeout(function() {
         if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
           item.id = id;
+          if(id < 8){
+            item.data.altitude = id * 130 / 8;
+          }
           collection.add(item);
         }
       }, 1200 * i);
