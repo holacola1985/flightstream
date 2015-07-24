@@ -52,7 +52,7 @@ $(document).ready(function() {
   var layer = new DroneLayer({
     collection: collection
   });
-  map.on('mousedown', function(){
+  map.on('mousedown', function() {
     $('.control input').attr('checked', false);
   });
   map.addLayer(layer);
@@ -67,7 +67,7 @@ $(document).ready(function() {
       setTimeout(function() {
         if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
           item.id = id;
-          if(id < 8){
+          if (id < 8) {
             item.data.altitude = id * 130 / 8;
           }
           collection.add(item);
@@ -86,7 +86,7 @@ $(document).ready(function() {
   var info = new Info({
     el: '.info'
   });
-  collection.on('active', function(model){
+  collection.on('active', function(model) {
     info.render(model);
   });
 });

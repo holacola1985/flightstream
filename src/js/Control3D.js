@@ -18,7 +18,7 @@ function Control3D(options) {
 Control3D.prototype.set3dMode = function set3dMode() {
   this.$el.addClass('on');
   this.$map.addClass('pers');
-  this.$map.css('transform', 'translateY(50px) rotateX(70deg)');
+  this.$map.css('transform', ' rotateX(70deg)');
   this.map.touchZoom.disable();
   this.map.doubleClickZoom.disable();
   this.map.scrollWheelZoom.disable();

@@ -69,6 +69,9 @@ function drawPathToMarker(m2) {
     alpha = 90 - alpha;
   }
   var gamma = Math.atan(dz / floor_dist) / Math.PI * 180;
+  if(dy < 0){
+    gamma = -gamma;
+  }
 
   var cssTransform = [
     'rotateZ(' + alpha + 'deg)',
