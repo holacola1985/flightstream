@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/lightstream-company/flightstream#readme",
   "dependencies": {
+    "backbone": "^1.2.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.8.0",
     "grunt-contrib-less": "^1.0.1",

@@ -1,6 +1,7 @@
 "use strict";
 var $ = require('jquery');
 var _ = require('lodash');
+var Backbone = require('backbone');
 var Control3D = require('./Control3D');
 var DroneLayer = require('./DroneLayer');
 var SampleData = require('./SampleData');
@@ -10,6 +11,15 @@ var L = window.L;
 L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
 
 var sample = new SampleData();
+var Model = Backbone.Model.extend({
+  getCoordinates: function getCoordinates(){
+    return this.get('geojson').coordinates;
+  }
+});
+var Collection = Backbone.Collection.extend({
+  model: Model
+});
+var collection = new Collection();
 
 $(document).ready(function() {
 
@@ -38,7 +48,9 @@ $(document).ready(function() {
     return bounds;
   };
 
-  var layer = new DroneLayer();
+  var layer = new DroneLayer({
+    collection: collection  
+  });
   map.addLayer(layer);
 
   var $follow = $('#follow-drone');
@@ -48,20 +60,15 @@ $(document).ready(function() {
     _.each(sample.data, function(item, i) {
       setTimeout(function() {
         if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
-          layer.appendMarker(item);
-          if ($follow.is(':checked')) {
-            map.setView(item.geojson.coordinates, map.getZoom());
-          }
+          collection.add(item);
         }
       }, 300 * i);
     });
   });
-  /*
-  layer.appendMarker([1.366775, 103.808111]);
-  layer.appendMarker([1.367245, 103.809247]);
-  layer.appendMarker([1.367095, 103.808750]);
-  layer.appendMarker([1.366113, 103.807654]);
-  layer.appendMarker([1.367095, 103.810338]);
-  layer.appendMarker([1.366628, 103.811908]);
-  */
+
+  collection.on('add', function(item){
+    if ($follow.is(':checked')) {
+      map.setView(item.get('geojson').coordinates, map.getZoom());
+    }
+  });
 });

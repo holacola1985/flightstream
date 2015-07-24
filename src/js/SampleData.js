@@ -15,25 +15,23 @@ SampleData.prototype.load = function load() {
 SampleData.prototype.parse = function parse(str) {
   var lines = str.split('\r\n');
   _.each(lines, function(line, l) {
-    if (l > 0) {
+    if (l > 0 && line) {
       var values = line.split(',');
       var record = {
         data: {
-          //picture_hd: values[0],  
-          //thumbnail: values[1], 
-          thumbnail: values[0], 
-          //altitude: parseFloat(values[4]),
-          altitude: parseFloat(values[3]),
-          /*
+          picture_hd: values[0],  
+          thumbnail: values[1].replace('"', '').replace('"',''), 
+          //thumbnail: values[0], 
+          altitude: parseFloat(values[4]),
+          //altitude: parseFloat(values[3]),
           yaw: parseFloat(values[5]),
           pitch: parseFloat(values[6]),
           roll: parseFloat(values[7]),
-          */
         },
         geojson: {
           type: 'Point',
-          //coordinates: [parseFloat(values[2]), parseFloat(values[3])]
-          coordinates: [parseFloat(values[1]), parseFloat(values[2])]
+          coordinates: [parseFloat(values[2]), parseFloat(values[3])]
+          //coordinates: [parseFloat(values[1]), parseFloat(values[2])]
         }
       };
       this.data.push(record);

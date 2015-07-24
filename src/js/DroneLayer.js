@@ -7,10 +7,14 @@ var Marker = require('./Marker');
 
 
 module.exports = L.Class.extend({
+  options: {
+    interactive: true,
+    nonBubblingEvents: ['click', 'dblclick', 'mouseover', 'mouseout', 'contextmenu'],
+  },
 
-  _zoomAnimated: true,
-
-  initialize: function() {
+  initialize: function(options) {
+    this.collection = options.collection;
+    this.collection.on('add', this.appendMarker, this);
     this.markers = [];
   },
 
@@ -40,15 +44,15 @@ module.exports = L.Class.extend({
   },
 
   appendMarker: function(item) {
-    if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
+    if (item.get('geojson').coordinates[0] && item.get('geojson').coordinates[1]) {
       this.markers.push(new Marker({
-        data: item,
+        model: item,
         layer: this
       }));
       var length = this.markers.length;
       if (length > 1) {
-        var start = this.markers[length - 2].data.geojson.coordinates;
-        var stop = this.markers[length - 1].data.geojson.coordinates;
+        var start = this.markers[length - 2].model.getCoordinates();
+        var stop = this.markers[length - 1].model.getCoordinates();
         L.polyline([start, stop], {
           weight: 2,
           color: 'white',
