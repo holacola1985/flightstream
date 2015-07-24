@@ -19,6 +19,9 @@ Control3D.prototype.set3dMode = function set3dMode() {
   this.$el.addClass('on');
   this.$map.addClass('pers');
   this.$map.css('transform', 'translateY(50px) rotateX(70deg)');
+  this.map.touchZoom.disable();
+  this.map.doubleClickZoom.disable();
+  this.map.scrollWheelZoom.disable();
   this.isIn3d = true;
 };
 
@@ -26,6 +29,9 @@ Control3D.prototype.setNormalMode = function setNormalMode() {
   this.$el.removeClass('on');
   this.$map.removeClass('pers');
   this.$map.css('transform', 'translateY(0px) rotateX(0deg)');
+  this.map.touchZoom.enable();
+  this.map.doubleClickZoom.enable();
+  this.map.scrollWheelZoom.enable();
   this.isIn3d = false;
 };
 
@@ -40,7 +46,7 @@ Control3D.prototype.toggle = function toggle(e) {
 
 Control3D.prototype.rotate = function rotate(angle) {
   this.$map.css('transform', 'translateY(50px) rotateX(70deg) rotateZ(' + angle + 'deg)');
-}
+};
 
 
 module.exports = Control3D;

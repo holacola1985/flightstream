@@ -7,6 +7,7 @@ html{
 body{
   height: 100%;
   font-family: monospace;
+  color: #333;
   @c1: darken(#3475d8, 10%);
   @c2: lighten(#3475d8, 20%);
   background: radial-gradient(ellipse at center, @c2 0%, @c1 100%);
@@ -125,11 +126,15 @@ body{
     height: @w/2;
     border-radius: 100px;
     background: @pointcolor;
-    transition: background 0.2s;
+    transition: all 0.2s;
   }
   &:hover, &.on{
     .drone-point-marker{
       background: orange;
+      width: @w;
+      height: @w;
+      top: 0;
+      left: 0;
     }
   }
 }

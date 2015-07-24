@@ -52,6 +52,9 @@ $(document).ready(function() {
   var layer = new DroneLayer({
     collection: collection
   });
+  map.on('mousedown', function(){
+    $('.control input').attr('checked', false);
+  });
   map.addLayer(layer);
 
   var $follow = $('#follow-drone');
