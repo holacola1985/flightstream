@@ -15,7 +15,9 @@ module.exports = L.Class.extend({
   initialize: function(options) {
     this.collection = options.collection;
     this.collection.on('add', this.appendMarker, this);
+    this.collection.on('active', this.activateMarker, this);
     this.markers = [];
+    this.markersById = {};
   },
 
   onAdd: function(map) {
@@ -45,10 +47,12 @@ module.exports = L.Class.extend({
 
   appendMarker: function(item) {
     if (item.get('geojson').coordinates[0] && item.get('geojson').coordinates[1]) {
-      this.markers.push(new Marker({
+      var marker = new Marker({
         model: item,
         layer: this
-      }));
+      });
+      this.markers.push(marker);
+      this.markersById[item.id] = marker;
       var length = this.markers.length;
       if (length > 1) {
         var start = this.markers[length - 2].model.getCoordinates();
@@ -61,6 +65,18 @@ module.exports = L.Class.extend({
         }).addTo(this._map);
       }
     }
+  },
+
+  activateMarker: function(model){
+    console.log(model);
+    if(this._activeMarker){
+      this._activeMarker.$el.removeClass('on');
+    }
+    this._activeMarker = this.markersById[model.id];
+    if(this._activeMarker){
+      this._activeMarker.$el.addClass('on');
+    }
+
   }
 
 });

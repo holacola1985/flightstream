@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 var Control3D = require('./Control3D');
 var DroneLayer = require('./DroneLayer');
 var SampleData = require('./SampleData');
+var Info = require('./Info');
 //var lightstream = require('lightstream-socket');
 require('mapbox.js');
 var L = window.L;
@@ -12,7 +13,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0
 
 var sample = new SampleData();
 var Model = Backbone.Model.extend({
-  getCoordinates: function getCoordinates(){
+  getCoordinates: function getCoordinates() {
     return this.get('geojson').coordinates;
   }
 });
@@ -49,26 +50,37 @@ $(document).ready(function() {
   };
 
   var layer = new DroneLayer({
-    collection: collection  
+    collection: collection
   });
   map.addLayer(layer);
 
   var $follow = $('#follow-drone');
 
+
   sample.load().done(function() {
     map.setView(sample.data[0].geojson.coordinates, 17);
     _.each(sample.data, function(item, i) {
+      var id = i;
       setTimeout(function() {
         if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
+          item.id = id;
           collection.add(item);
         }
-      }, 300 * i);
+      }, 1200 * i);
     });
   });
 
-  collection.on('add', function(item){
+  collection.on('add', function(model) {
     if ($follow.is(':checked')) {
-      map.setView(item.get('geojson').coordinates, map.getZoom());
+      map.setView(model.get('geojson').coordinates, map.getZoom());
+      model.trigger('active', model);
     }
+  });
+
+  var info = new Info({
+    el: '.info'
+  });
+  collection.on('active', function(model){
+    info.render(model);
   });
 });

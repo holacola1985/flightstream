@@ -7,6 +7,10 @@ var template = require('./marker.hbs');
 var m2px = require('./meterToPixel.js');
 
 module.exports = Backbone.View.extend({
+  className: 'drone-point',
+  events: {
+    'click': triggerActive
+  },
   initialize: initialize,
   render: render,
   setHeight: setHeight,
@@ -15,22 +19,18 @@ module.exports = Backbone.View.extend({
 
 function initialize(options) {
   this.layer = options.layer;
+  this.$el.appendTo(this.layer._el);
   this.render();
   this.setPosition();
 }
 
+function triggerActive() {
+  this.model.trigger('active', this.model);
+}
+
 function render() {
-  var self = this;
-  if (this.$el) {
-    this.$el.remove();
-    this.$el.off();
-  }
-  this.$el = $(template({}));
-  this.$el.appendTo(this.layer._el);
+  this.$el.html(template({}));
   this.setHeight();
-  this.$el.on('click', function(){
-    console.log(self.model.get('data').thumbnail); 
-  });
 }
 
 function setHeight() {
@@ -50,4 +50,3 @@ function setPosition() {
   var pos = this.layer._map.latLngToLayerPoint(this.model.get('geojson').coordinates);
   L.DomUtil.setPosition(el, pos);
 }
-
