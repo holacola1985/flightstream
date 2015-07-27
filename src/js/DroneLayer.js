@@ -57,17 +57,6 @@ module.exports = L.Class.extend({
       this.markersById[item.id] = marker;
       var length = this.markers.length;
       if (length > 1) {
-        /*
-        var start = this.markers[length - 2].model.getCoordinates();
-        var stop = this.markers[length - 1].model.getCoordinates();
-        L.polyline([start, stop], {
-          weight: 2,
-          color: 'white',
-          fill: false,
-          clickable: false
-        }).addTo(this._map);
-        */
-
         this.markers[length - 2].drawPathToMarker(this.markers[length - 1]);
       }
     }
@@ -75,7 +64,6 @@ module.exports = L.Class.extend({
 
 
   activateMarker: function(model) {
-    console.log(model);
     if (this._activeMarker) {
       this._activeMarker.$el.removeClass('on');
     }
