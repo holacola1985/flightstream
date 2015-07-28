@@ -24,6 +24,7 @@ function initialize(options) {
   this.$el.appendTo(this.layer._el);
   this.render();
   this.setPosition();
+  this.listenTo(this.model, 'remove', this.remove);
 }
 
 function triggerActive() {

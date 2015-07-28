@@ -16,6 +16,12 @@ module.exports = L.Class.extend({
     this.collection = options.collection;
     this.collection.on('add', this.appendMarker, this);
     this.collection.on('active', this.activateMarker, this);
+    this.collection.on('reset', this.resetMarkers);
+    this.markers = [];
+    this.markersById = {};
+  },
+
+  resetMarkers: function(){
     this.markers = [];
     this.markersById = {};
   },

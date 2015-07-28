@@ -3,12 +3,12 @@ var $ = require('jquery');
 var _ = require('lodash');
 
 function SampleData() {
-  this.data = [];
 }
 
-SampleData.prototype.load = function load() {
-  return $.get('geo-sample.csv', function(str) {
-    this.parse(str);
+SampleData.prototype.load = function load(url) {
+  this.data = [];
+  return $.get(url, function(str) {
+    return this.parse(str);
   }.bind(this));
 };
 
@@ -37,6 +37,7 @@ SampleData.prototype.parse = function parse(str) {
       this.data.push(record);
     }
   }, this);
+  return this.data;
 };
 
 module.exports = SampleData;

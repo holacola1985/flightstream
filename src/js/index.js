@@ -1,17 +1,15 @@
 "use strict";
 var $ = require('jquery');
-var _ = require('lodash');
 var Backbone = require('backbone');
 var Control3D = require('./Control3D');
 var DroneLayer = require('./DroneLayer');
-var SampleData = require('./SampleData');
+var Router = require('./Router');
 var Info = require('./Info');
 //var lightstream = require('lightstream-socket');
 require('mapbox.js');
 var L = window.L;
 L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
 
-var sample = new SampleData();
 var Model = Backbone.Model.extend({
   getCoordinates: function getCoordinates() {
     return this.get('geojson').coordinates;
@@ -59,20 +57,13 @@ $(document).ready(function() {
 
   var $follow = $('#follow-drone');
 
+  new Router({
+    collection: collection
+  });
 
-  sample.load().done(function() {
-    map.setView(sample.data[0].geojson.coordinates, 17);
-    _.each(sample.data, function(item, i) {
-      var id = i;
-      setTimeout(function() {
-        if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
-          item.id = id;
-          if (id < 8) {
-            item.data.altitude = id * 130 / 8;
-          }
-          collection.add(item);
-        }
-      }, 1200 * i);
+  collection.on('reset', function() {
+    collection.once('add', function(model) {
+      map.setView(model.get('geojson').coordinates, map.getZoom());
     });
   });
 
@@ -89,4 +80,6 @@ $(document).ready(function() {
   collection.on('active', function(model) {
     info.render(model);
   });
+
+  Backbone.history.start();
 });
