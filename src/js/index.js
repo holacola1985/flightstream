@@ -101,6 +101,10 @@ $(document).ready(function() {
   collection.on('active', function(model) {
     info.render(model);
   });
+
+  $('#flight-selector').change(function(){
+    document.location.hash = this.value;
+  });
   
   map.on('load', function(){
     Backbone.history.start();
