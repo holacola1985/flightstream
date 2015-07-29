@@ -5,6 +5,7 @@
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <title>Flightstream</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 </head>
 <body>
@@ -12,6 +13,10 @@
     <div id="map"></div>
   </div>
   <div class="control">
+    <div class="goto">
+      <button class="end"><i class="fa fa-fast-forward"></i></button>
+      <button class="play"><i class="fa fa-play"></i></button>
+    </div>
     <div class="follow">
       <label for="follow-drone">
         <input id="follow-drone" type="checkbox" min="0" max="360" value="0" /> follow

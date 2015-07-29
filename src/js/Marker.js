@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
   drawPathToMarker: drawPathToMarker,
   getHeight: getHeight,
   setHeight: setHeight,
-  setPosition: setPosition
+  setPosition: setPosition,
 });
 
 function initialize(options) {
@@ -24,7 +24,7 @@ function initialize(options) {
   this.$el.appendTo(this.layer._el);
   this.render();
   this.setPosition();
-  this.listenTo(this.model, 'remove', this.remove);
+  this.listenTo(this.model.collection, 'reset', this.remove);
 }
 
 function triggerActive() {
@@ -111,7 +111,3 @@ function setPosition() {
   L.DomUtil.setPosition(el, this.position);
 }
 
-function remove() {
-  delete this._distMarker;
-  Backbone.View.prototype.remove.call(this);
-}

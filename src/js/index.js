@@ -56,12 +56,28 @@ $(document).ready(function() {
   map.addLayer(layer);
 
   var $follow = $('#follow-drone');
+  var $play = $('.control .play');
+  var $end = $('.control .end');
 
-  new Router({
+  $play.hide();
+
+  var router = new Router({
     collection: collection
   });
 
+  $end.click(function(e){
+    e.preventDefault();
+    router.goToEnd();
+  });
+
+  $play.click(function(e){
+    e.preventDefault();
+    router.reload();
+  });
+
   collection.on('reset', function() {
+    $play.hide();
+    $end.show();
     collection.once('add', function(model) {
       map.setView(model.get('geojson').coordinates, map.getZoom());
     });
@@ -72,6 +88,11 @@ $(document).ready(function() {
       map.setView(model.get('geojson').coordinates, map.getZoom());
       model.trigger('active', model);
     }
+  });
+
+  collection.on('end', function(){
+    $end.hide();
+    $play.show();
   });
 
   var info = new Info({
