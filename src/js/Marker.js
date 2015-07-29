@@ -70,7 +70,7 @@ function drawPathToMarker(m2) {
     alpha = 90 - alpha;
   }
   var gamma = Math.atan(dz / floor_dist) / Math.PI * 180;
-  if(dy < 0){
+  if (dy < 0) {
     gamma = -gamma;
   }
 
@@ -109,4 +109,9 @@ function setPosition() {
   var el = this.$el[0];
   this.position = this.layer._map.latLngToLayerPoint(this.model.get('geojson').coordinates);
   L.DomUtil.setPosition(el, this.position);
+}
+
+function remove() {
+  delete this._distMarker;
+  Backbone.View.prototype.remove.call(this);
 }

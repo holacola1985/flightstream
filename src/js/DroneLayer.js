@@ -14,9 +14,9 @@ module.exports = L.Class.extend({
 
   initialize: function(options) {
     this.collection = options.collection;
+    this.collection.on('reset', this.resetMarkers);
     this.collection.on('add', this.appendMarker, this);
     this.collection.on('active', this.activateMarker, this);
-    this.collection.on('reset', this.resetMarkers);
     this.markers = [];
     this.markersById = {};
   },
@@ -61,13 +61,17 @@ module.exports = L.Class.extend({
       });
       this.markers.push(marker);
       this.markersById[item.id] = marker;
-      var length = this.markers.length;
-      if (length > 1) {
-        this.markers[length - 2].drawPathToMarker(this.markers[length - 1]);
+      var from = this.getMarker(this.collection.at(this.collection.length - 2));
+      var to = this.getMarker(this.collection.last());
+      if(from && to){
+        from.drawPathToMarker(to);
       }
     }
   },
 
+  getMarker: function(model){
+    return this.markersById[model.id];
+  },
 
   activateMarker: function(model) {
     if (this._activeMarker) {

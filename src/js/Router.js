@@ -18,9 +18,8 @@ function initialize(options) {
 function load(id) {
   var url = '/flightstream_geo-' + id + '.csv';
   _.each(this.timeouts, clearTimeout);
-  this.collection.reset();
-  var timeouts = this.timeouts = [];
-  var collection = this.collection;
+  this.collection.reset(null);
+  this.timeouts = [];
   $.get(url, function(str) {
     var lines = str.split('\r\n');
     lines.shift();
@@ -28,29 +27,20 @@ function load(id) {
       return line && line !== ',,,,,,,,,';
     });
     var data = _.map(lines, parseLine);
-    //console.log(data);
     _.each(data, function(item, i) {
-      //console.log('yo');
       var id = i;
-      timeouts.push(setTimeout(function() {
+      this.timeouts.push(setTimeout(function() {
         if (item.geojson.coordinates[0] && item.geojson.coordinates[1]) {
-          
           item.id = id;
-          /*
-          if (id < 8) {
-            item.data.altitude = id * 130 / 8;
-          }
-          */
-          collection.add(item);
+          this.collection.add(item);
         }
-      }, 1200 * i + 10));
-    });
-  });
+      }.bind(this), 1200 * i + 10));
+    }, this);
+  }.bind(this));
 }
 
 function parseLine(line){
   var values = line.split(',');
-  console.log(values);
   return {
     data: {
       picture_hd: values[0],  

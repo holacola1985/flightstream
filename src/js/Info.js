@@ -10,8 +10,11 @@ module.exports = Backbone.View.extend({
 function render(model){
   var data = _.pick(model.get('data'),[
     'thumbnail',
-    'altitude',
+    //'altitude',
     'speed',
+    'yaw',
+    'pitch',
+    'roll',
     'battery'
   ]);
   var battery = model.get('data').battery;
@@ -25,5 +28,7 @@ function render(model){
       data.battery_color = 'green';
     }
   }
+
+  data.altitude = Math.round(model.get('data').altitude * 100) / 100;
   this.$el.html(template(data));
 }

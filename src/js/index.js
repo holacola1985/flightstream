@@ -80,6 +80,8 @@ $(document).ready(function() {
   collection.on('active', function(model) {
     info.render(model);
   });
-
-  Backbone.history.start();
+  
+  map.on('load', function(){
+    Backbone.history.start();
+  });
 });

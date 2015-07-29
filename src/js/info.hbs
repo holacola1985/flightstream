@@ -1,9 +1,32 @@
-<p>
-  speed: {{speed}}m/s <br />
-  <span style="color:{{battery_color}}">battery: {{battery}}</span><br />
-  altitude: {{altitude}}m <br />
-</p>
-<hr>
-<a href="{{thumbnail}}" target="_blank">
+<a class="thumb white-panel" href="{{thumbnail}}" target="_blank">
   <img src="{{thumbnail}}" alt="">
 </a>
+
+<div class="stats white-panel">
+  <table>
+    <tr>
+      <th align="left">battery</th>
+      <th style="color:{{battery_color}}" align="right">{{battery}}</th>
+    </tr>
+    <tr>
+      <td align="left">speed</td>
+      <td align="right">{{speed}} m/s</td>
+    </tr>
+    <tr>
+      <td align="left">altitude</td>
+      <td align="right">{{altitude}} m</td>
+    </tr>
+    <tr>
+      <td align="left">yaw</td>
+      <td align="right">{{yaw}}°</td>
+    </tr>
+    <tr>
+      <td align="left">pitch</td>
+      <td align="right">{{pitch}}°</td>
+    </tr>
+    <tr>
+      <td align="left">roll</td>
+      <td align="right">{{roll}}°</td>
+    </tr>
+  </table>
+</div>
