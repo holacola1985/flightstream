@@ -9,6 +9,7 @@ var Info = require('./Info');
 require('mapbox.js');
 var L = window.L;
 L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
+var MAPBOX_STYLE_ID = 'franckernewein.2e4d602d';
 
 var Model = Backbone.Model.extend({
   getCoordinates: function getCoordinates() {
@@ -22,7 +23,7 @@ var collection = new Collection();
 
 $(document).ready(function() {
 
-  var map = L.mapbox.map('map', 'franckernewein.925cb8ba', {
+  var map = L.mapbox.map('map', MAPBOX_STYLE_ID, {
     zoomControl: false,
     attributionControl: false,
     tileLayer: {
