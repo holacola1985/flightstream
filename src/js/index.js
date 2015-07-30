@@ -31,6 +31,8 @@ $(document).ready(function() {
     }
   });
 
+  map.setZoom(18);
+
   new Control3D({
     map: map,
     el: $('.control-3d'),
