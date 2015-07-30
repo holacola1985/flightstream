@@ -10,6 +10,7 @@ module.exports = Backbone.View.extend({
 function render(model) {
   var data = _.pick(model.get('data'), [
     'thumbnail',
+    'picture_hd',
     //'altitude',
     'speed',
     'yaw',
